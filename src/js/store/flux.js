@@ -13,6 +13,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			modificar: (list) => {
 				const store = getStore();
 				setStore({ contacts: list });
+			},
+			guardar : (data) => {
+				fetch("https://playground.4geeks.com/apis/fake/contact", {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+				})
+			},
+			update : () => {
+				
 			}
 		}
 	};
