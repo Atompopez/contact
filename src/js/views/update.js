@@ -1,14 +1,15 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Update = () => {
-    const { actions } = useContext(Context);
+  const {index} = useParams();
+  const { actions , store } = useContext(Context);
 
-  const [inputName, setInputName] = useState("");
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPhone, setInputPhone] = useState("");
-  const [inputAddress, setInputAddress] = useState("");
+  const [inputName, setInputName] = useState(store.contacts[index].full_name);
+  const [inputEmail, setInputEmail] = useState(store.contacts[index].email);
+  const [inputPhone, setInputPhone] = useState(store.contacts[index].phone);
+  const [inputAddress, setInputAddress] = useState(store.contacts[index].address);
 
   const guardar = () => {
 	if (inputName != '' && inputAddress != '' && inputAddress != '' && inputPhone !=''){
@@ -20,9 +21,9 @@ export const Update = () => {
 			phone: inputPhone
 		  };
 	  
-		  actions.guardar(data);
+		  actions.update(data,store.contacts[index].id);
 	}
-  };
+};
 
   return (
     <div id="cont">
@@ -30,7 +31,7 @@ export const Update = () => {
       <form>
         <div className="mb-3">
           <label htmlFor="full_name" className="form-label"><b>Full Name</b></label>
-          <input type="text" value={inputName} onChange={(e) => setInputName(e.target.value)} className="form-control" id="full_name" placeholder="Full Name" />
+          <input type="text" value={inputName} onChange={(e) => setInputName(e.target.value)} className="form-control" id="full_name" placeholder="Full Name"/>
         </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label"><b>Email</b></label>
@@ -45,7 +46,7 @@ export const Update = () => {
           <input type="text" value={inputAddress} onChange={(e) => setInputAddress(e.target.value)} className="form-control" id="address" placeholder="Enter address" />
         </div>
         <Link to="/demo">
-			<button onClick={guardar} type="button" className="btn btn-primary w-100"><b>Save</b></button>
+			<button onClick={guardar} type="button" className="btn btn-primary w-100"><b>update</b></button>
         	or get back to contacts
         </Link>
       </form>

@@ -16,15 +16,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			guardar : (data) => {
 				fetch("https://playground.4geeks.com/apis/fake/contact", {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(data)
 				})
 			},
-			update : () => {
-				
+			update : (data,id) => {
+				fetch("https://playground.4geeks.com/apis/fake/contact/"+id, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(data)
+				})
 			}
 		}
 	};
